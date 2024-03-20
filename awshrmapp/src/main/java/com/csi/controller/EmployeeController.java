@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,5 +65,10 @@ public class EmployeeController {
     public ResponseEntity<String> deleteAll(){
         employeeServiceImpl.deleteAll();
         return ResponseEntity.ok("All Data Deleted Sucessfully  ");
+    }
+
+    @GetMapping("/sortbyempname")
+    public ResponseEntity<List<Employee>> sortbyempName(){
+        return ResponseEntity.ok(employeeServiceImpl.findAll().stream().sorted(Comparator.comparing(Employee::getEmpName)).toList());
     }
 }
